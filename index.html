@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>エピソード漫画クリエイター | あなたのエピソードを魅力的な漫画に</title>
+    <meta name="description" content="エピソードを魅力的な漫画に変換。7つのスタイル、1〜3ページ選択可能。完全無料、スマホ対応。">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">✨ エピソード漫画クリエイター</h1>
+            <p class="tagline">あなたのエピソードを魅力的な漫画に</p>
+        </div>
+    </header>
+
+    <!-- メインコンテンツ -->
+    <main class="main">
+        <div class="container">
+            
+            <!-- ステップインジケーター -->
+            <div class="steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">エピソード</div>
+                </div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">用途選択</div>
+                </div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">ページ数</div>
+                </div>
+                <div class="step" data-step="4">
+                    <div class="step-number">4</div>
+                    <div class="step-label">スタイル</div>
+                </div>
+                <div class="step" data-step="5">
+                    <div class="step-number">5</div>
+                    <div class="step-label">生成</div>
+                </div>
+            </div>
+
+            <!-- フォーム -->
+            <form id="mangaForm" class="form">
+                
+                <!-- ステップ1: エピソード入力 -->
+                <div class="form-section active" data-section="1">
+                    <h2 class="section-title">📝 エピソードを教えてください</h2>
+                    <p class="section-desc">どんな体験談や物語を漫画にしたいですか？</p>
+                    
+                    <div class="form-group">
+                        <label for="episode">エピソード（必須）</label>
+                        <textarea 
+                            id="episode" 
+                            name="episode" 
+                            rows="8" 
+                            placeholder="例：今日、駅で困っている外国人観光客に道案内をしました。最初は英語が通じるか不安でしたが、スマホの翻訳アプリを使って何とか説明できました。最後に「ありがとう！」と笑顔で言われて、すごく嬉しかったです。"
+                            required
+                        ></textarea>
+                        <div class="char-count">
+                            <span id="charCount">0</span> / 1000文字
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="characterImage">キャラクター画像（必須）</label>
+                        <p class="help-text">漫画に登場させたいキャラクターの画像をアップロードしてください</p>
+                        <div class="file-upload">
+                            <input type="file" id="characterImage" name="characterImage" accept="image/*" required>
+                            <label for="characterImage" class="file-label">
+                                <span class="file-icon">📁</span>
+                                <span class="file-text">画像を選択</span>
+                            </label>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="productName">商品名（任意）</label>
+                        <input 
+                            type="text" 
+                            id="productName" 
+                            name="productName" 
+                            placeholder="商品やサービスを紹介する場合は入力してください"
+                        >
+                        <p class="help-text">※商品画像を参照する許可を次の画面で確認します</p>
+                    </div>
+
+                    <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">次へ →</button>
+                </div>
+
+                <!-- ステップ2: 用途選択 -->
+                <div class="form-section" data-section="2">
+                    <h2 class="section-title">🎯 この漫画をどこで使いますか？</h2>
+                    <p class="section-desc">用途に合わせて最適な構成を提案します</p>
+                    
+                    <div class="usage-grid">
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="sns" required>
+                            <div class="usage-content">
+                                <div class="usage-icon">📱</div>
+                                <div class="usage-title">SNS投稿</div>
+                                <div class="usage-subtitle">Instagram・X・Facebook</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="blog">
+                            <div class="usage-content">
+                                <div class="usage-icon">📝</div>
+                                <div class="usage-title">ブログ・note</div>
+                                <div class="usage-subtitle">記事コンテンツ</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="presentation">
+                            <div class="usage-content">
+                                <div class="usage-icon">📊</div>
+                                <div class="usage-title">プレゼン・セミナー</div>
+                                <div class="usage-subtitle">ビジネス資料</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="product">
+                            <div class="usage-content">
+                                <div class="usage-icon">🛍️</div>
+                                <div class="usage-title">商品・サービス紹介</div>
+                                <div class="usage-subtitle">マーケティング</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="education">
+                            <div class="usage-content">
+                                <div class="usage-icon">📚</div>
+                                <div class="usage-title">教育・研修資料</div>
+                                <div class="usage-subtitle">学習教材</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="newsletter">
+                            <div class="usage-content">
+                                <div class="usage-icon">📧</div>
+                                <div class="usage-title">メルマガ</div>
+                                <div class="usage-subtitle">ニュースレター</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="ad">
+                            <div class="usage-content">
+                                <div class="usage-icon">📢</div>
+                                <div class="usage-title">広告・宣伝</div>
+                                <div class="usage-subtitle">プロモーション</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="personal">
+                            <div class="usage-content">
+                                <div class="usage-icon">🎁</div>
+                                <div class="usage-title">記念・プレゼント</div>
+                                <div class="usage-subtitle">個人用</div>
+                            </div>
+                        </label>
+
+                        <label class="usage-card">
+                            <input type="radio" name="usage" value="other">
+                            <div class="usage-content">
+                                <div class="usage-icon">✨</div>
+                                <div class="usage-title">その他</div>
+                                <div class="usage-subtitle">自由に使用</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+                        <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">次へ →</button>
+                    </div>
+                </div>
+
+                <!-- ステップ3: ページ数選択 -->
+                <div class="form-section" data-section="3">
+                    <h2 class="section-title">📖 ページ数を選んでください</h2>
+                    <p class="section-desc" id="pageRecommendation">あなたの用途に最適なページ数を提案します</p>
+                    
+                    <div class="page-grid">
+                        <label class="page-card">
+                            <input type="radio" name="pages" value="1" required>
+                            <div class="page-content">
+                                <div class="page-number">1ページ</div>
+                                <div class="page-icon">📄</div>
+                                <div class="page-feature">サクッと読める！</div>
+                                <div class="page-time">⏱ 10〜15秒</div>
+                                <div class="page-desc">
+                                    <p>シンプルな起承転結</p>
+                                    <p class="page-best">SNS・広告向き</p>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="page-card recommended">
+                            <input type="radio" name="pages" value="2">
+                            <div class="page-content">
+                                <div class="page-badge">おすすめ</div>
+                                <div class="page-number">2ページ</div>
+                                <div class="page-icon">📑</div>
+                                <div class="page-feature">バランス型！</div>
+                                <div class="page-time">⏱ 30〜45秒</div>
+                                <div class="page-desc">
+                                    <p>共感+行動喚起</p>
+                                    <p class="page-best">ブログ・プレゼン向き</p>
+                                </div>
+                            </div>
+                        </label>
+
+                        <label class="page-card">
+                            <input type="radio" name="pages" value="3">
+                            <div class="page-content">
+                                <div class="page-number">3ページ</div>
+                                <div class="page-icon">📚</div>
+                                <div class="page-feature">じっくり読ませる！</div>
+                                <div class="page-time">⏱ 1〜1.5分</div>
+                                <div class="page-desc">
+                                    <p>深い共感と感動</p>
+                                    <p class="page-best">教育・商品紹介向き</p>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+                        <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">次へ →</button>
+                    </div>
+                </div>
+
+                <!-- ステップ4: スタイル選択 -->
+                <div class="form-section" data-section="4">
+                    <h2 class="section-title">🎨 スタイルを選んでください</h2>
+                    <p class="section-desc" id="styleRecommendation">あなたの用途に最適なスタイルを提案します</p>
+                    
+                    <div class="style-grid">
+                        <label class="style-card">
+                            <input type="radio" name="style" value="watercolor" required>
+                            <div class="style-content">
+                                <div class="style-icon">🌸</div>
+                                <div class="style-name">ふんわり優しい水彩タッチ</div>
+                                <div class="style-desc">柔らかく温かみのある絵本のような雰囲気</div>
+                                <div class="style-best">感動系・子育て・癒し系</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card">
+                            <input type="radio" name="style" value="shoujo">
+                            <div class="style-content">
+                                <div class="style-icon">💫</div>
+                                <div class="style-name">キラキラ少女漫画風</div>
+                                <div class="style-desc">大きな瞳と花背景の王道少女漫画</div>
+                                <div class="style-best">恋愛・友情・エモーショナル</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card recommended">
+                            <input type="radio" name="style" value="anime">
+                            <div class="style-content">
+                                <div class="style-badge">万能型</div>
+                                <div class="style-icon">🎬</div>
+                                <div class="style-name">アニメ風カラフル</div>
+                                <div class="style-desc">鮮やかな色彩のアニメ調</div>
+                                <div class="style-best">ビジネス・教育・幅広い読者</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card">
+                            <input type="radio" name="style" value="rough">
+                            <div class="style-content">
+                                <div class="style-icon">✏️</div>
+                                <div class="style-name">ゆるふわ手描きラフ</div>
+                                <div class="style-desc">親しみやすいSNS映えする脱力系</div>
+                                <div class="style-best">日常あるある・笑える話</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card">
+                            <input type="radio" name="style" value="pop">
+                            <div class="style-content">
+                                <div class="style-icon">🌈</div>
+                                <div class="style-name">カラフルポップ</div>
+                                <div class="style-desc">明るくてキャッチーなスタイル</div>
+                                <div class="style-best">商品紹介・イベント告知</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card">
+                            <input type="radio" name="style" value="marker">
+                            <div class="style-content">
+                                <div class="style-icon">🖊️</div>
+                                <div class="style-name">大人っぽいマーカー画</div>
+                                <div class="style-desc">洗練されたおしゃれな雰囲気</div>
+                                <div class="style-best">ビジネス・大人向け</div>
+                            </div>
+                        </label>
+
+                        <label class="style-card">
+                            <input type="radio" name="style" value="pen">
+                            <div class="style-content">
+                                <div class="style-icon">🖋️</div>
+                                <div class="style-name">シンプルボールペン画</div>
+                                <div class="style-desc">読みやすいスケッチ風</div>
+                                <div class="style-best">説明系・ノウハウ共有</div>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+                        <button type="button" class="btn btn-primary btn-next" onclick="nextStep()">次へ →</button>
+                    </div>
+                </div>
+
+                <!-- ステップ5: 確認と生成 -->
+                <div class="form-section" data-section="5">
+                    <h2 class="section-title">✨ 内容を確認して生成しましょう！</h2>
+                    
+                    <div class="summary">
+                        <div class="summary-item">
+                            <div class="summary-label">📝 エピソード</div>
+                            <div class="summary-value" id="summaryEpisode"></div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">🎯 用途</div>
+                            <div class="summary-value" id="summaryUsage"></div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">📖 ページ数</div>
+                            <div class="summary-value" id="summaryPages"></div>
+                        </div>
+                        <div class="summary-item">
+                            <div class="summary-label">🎨 スタイル</div>
+                            <div class="summary-value" id="summaryStyle"></div>
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <p>⚡ 生成には30秒〜2分ほどかかります</p>
+                        <p>💡 この処理にはクレジットが消費されます</p>
+                    </div>
+
+                    <div class="button-group">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep()">← 戻る</button>
+                        <button type="submit" class="btn btn-primary btn-generate" id="generateBtn">
+                            🎨 漫画を生成する
+                        </button>
+                    </div>
+                </div>
+
+            </form>
+
+            <!-- 生成中の表示 -->
+            <div id="loadingSection" class="loading-section" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <h3>漫画を生成中...</h3>
+                    <p id="loadingMessage">エピソードを分析しています...</p>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 結果表示 -->
+            <div id="resultSection" class="result-section" style="display: none;">
+                <h2 class="section-title">🎉 漫画が完成しました！</h2>
+                <div id="resultContent" class="result-content"></div>
+                <div class="button-group">
+                    <button type="button" class="btn btn-secondary" onclick="resetForm()">新しい漫画を作る</button>
+                    <button type="button" class="btn btn-primary" onclick="downloadManga()">📥 ダウンロード</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- フッター -->
+    <footer class="footer">
+        <div class="container">
+            <p>© 2026 エピソード漫画クリエイター by <a href="https://www.genspark.ai" target="_blank">Genspark</a></p>
+            <p>Powered by しぃー (Ciiiz) | <a href="#">利用規約</a> | <a href="#">プライバシーポリシー</a></p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
